@@ -137,7 +137,11 @@ const Navbar = () => {
         <div className="hidden md:block">
           <a 
             href="#consultation" 
-            className="bg-nuvemite-blue text-white hover:bg-nuvemite-cyan transition-all duration-300 px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            className={`transition-all duration-300 px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
+              isScrolled 
+                ? 'bg-nuvemite-blue text-white hover:bg-nuvemite-cyan' 
+                : 'bg-white text-[#005A98] hover:bg-slate-100'
+            }`}
           >
             Get a Consultation
           </a>
