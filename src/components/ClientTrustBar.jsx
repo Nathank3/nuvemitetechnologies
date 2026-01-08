@@ -31,10 +31,29 @@ const ClientTrustBar = () => {
           Trusted by Industry Leaders
         </p>
         
-        {/* Logo Grid - Responsive Layout */}
-        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-10 md:gap-x-16">
+        {/* Mobile: Infinite Marquee */}
+        <div className="md:hidden overflow-hidden relative w-full mask-gradient">
+             {/* Gradient Masks */}
+             <div className="absolute left-0 top-0 bottom-0 w-8 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none" />
+             <div className="absolute right-0 top-0 bottom-0 w-8 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+
+             <div className="flex w-max animate-scroll">
+                {[...partners, ...partners].map((partner, index) => (
+                    <div key={`${partner.name}-${index}`} className="flex items-center justify-center w-32 mx-4">
+                        <img 
+                            src={partner.logo} 
+                            alt={`${partner.name} logo`} 
+                            className="max-w-full h-auto max-h-12 object-contain opacity-80"
+                        />
+                    </div>
+                ))}
+             </div>
+        </div>
+
+        {/* Desktop: Grid Layout */}
+        <div className="hidden md:flex flex-wrap justify-center items-center gap-x-12 gap-y-10 md:gap-x-16">
           {partners.map((partner) => (
-            <div key={partner.name} className="flex items-center justify-center w-32 md:w-36 transition-all duration-300 transform hover:scale-105">
+            <div key={partner.name} className="flex items-center justify-center w-36 transition-all duration-300 transform hover:scale-105">
               <img 
                 src={partner.logo} 
                 alt={`${partner.name} logo`} 
