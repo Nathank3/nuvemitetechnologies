@@ -15,6 +15,7 @@ export const ecosystemData = {
         name: "Imara LIMS",
         icon: FlaskConical,
         theme: "red",
+        variant: "molecule",
         features: [
             "Sample Management", 
             "Workflow Automation", 
@@ -30,6 +31,7 @@ export const ecosystemData = {
         name: "Imara School",
         icon: GraduationCap,
         theme: "blue",
+        variant: "orbit",
         features: [
             "Student Info System", 
             "Academic Management", 
@@ -45,6 +47,7 @@ export const ecosystemData = {
         name: "Hospital Management",
         icon: Stethoscope,
         theme: "emerald",
+        variant: "molecule",
         features: [
             "Patient Registration", 
             "Doctor Scheduling", 
@@ -60,6 +63,7 @@ export const ecosystemData = {
         name: "Property Management",
         icon: Building,
         theme: "amber",
+        variant: "blueprint",
         features: [
             "Tenant & Leases", 
             "Rent & Utility Billing", 
@@ -75,6 +79,7 @@ export const ecosystemData = {
         name: "Inventory System",
         icon: Package,
         theme: "purple",
+        variant: "blueprint",
         features: [
             "Stock Tracking", 
             "Purchase Orders", 
@@ -90,6 +95,7 @@ export const ecosystemData = {
         name: "Accounting",
         icon: Calculator,
         theme: "indigo",
+        variant: "orbit",
         features: [
             "General Ledger", 
             "AP & AR", 
@@ -104,7 +110,8 @@ export const ecosystemData = {
     'kmacho': {
         name: "Kmacho Data",
         icon: MapIcon,
-        theme: "pink", // Fixed to Pink as requested
+        theme: "pink",
+        variant: "radar",
         features: [
             "Mobile Data Collection", 
             "Offline Entry", 
@@ -116,9 +123,10 @@ export const ecosystemData = {
             "Analytics"
         ]
     },
-    'logistics': { // New one? Prompt mentions "Imara Logistics". It wasn't in ProductsPage.
+    'logistics': {
         name: "Imara Logistics",
         icon: Truck,
+        variant: "radar",
         theme: "cyan",
         features: [
             "Fleet Management", 

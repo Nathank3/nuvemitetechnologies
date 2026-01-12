@@ -25,7 +25,7 @@ const partners = [
 
 const ClientTrustBar = () => {
   return (
-    <div className="bg-white py-12 border-b border-slate-100 relative z-20">
+    <div id="partners" className="bg-white py-12 border-b border-slate-100 relative z-20">
       <div className="container mx-auto px-4">
         <p className="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-10">
           Trusted by Industry Leaders
