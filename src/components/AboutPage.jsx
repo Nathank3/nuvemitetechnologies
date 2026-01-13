@@ -160,24 +160,33 @@ const ValueCard = ({ value }) => {
     );
 };
 
+import colmanImg from '../assets/colman-mwakio.png';
+import davidImg from '../assets/david-kimari.png';
+import maryImg from '../assets/mary-namunyak.png';
+import danielImg from '../assets/daniel-nyagah.png';
+
 const LeadershipSection = () => {
     const leaders = [
-        { name: 'John Doe', role: 'CEO & Founder' },
-        { name: 'Jane Smith', role: 'CTO' },
-        { name: 'Robert Fox', role: 'CFO' },
+        { name: 'Colman Mwakio', role: 'CEO & Founder', image: colmanImg },
+        { name: 'David Kimari', role: 'CTO', image: davidImg },
+        { name: 'Mary Namunyak', role: 'CFO', image: maryImg },
+        { name: 'Daniel Nyagah', role: 'Senior Developer', image: danielImg },
     ];
 
     return (
         <section className="py-20 px-4 bg-white overflow-hidden">
             <div className="container mx-auto">
                 <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 text-[#0A192F]">The Minds Behind the Code</h2>
-                <div className="flex flex-col md:flex-row justify-center gap-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
                     {leaders.map((leader, idx) => (
-                        <div key={idx} className="group relative w-full md:w-80 h-[450px] bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-2xl">
+                        <div key={idx} className="group relative w-full h-[450px] bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-2xl">
                             {/* Image Placeholder */}
                             <div className="w-full h-full bg-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center">
-                                {/* Replace with actual images */}
-                                <Users className="w-24 h-24 text-slate-300" /> 
+                                <img 
+                                    src={leader.image} 
+                                    alt={leader.name} 
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             
                             {/* Glassmorphic Bio Card */}
