@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Shield, Users, Lightbulb, Target, Activity, Heart, Award, CheckCircle, Linkedin } from 'lucide-react';
-import heroOffice from '../assets/hero-office.PNG';
+import heroOffice from '../assets/hero-office.png';
 
 const AboutPage = () => {
     return (

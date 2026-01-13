@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -65,7 +65,7 @@ const HeroCarousel = () => {
             onSlideChange={handleSlideChange}
             className="h-full w-full"
         >
-            {slides.map((slide, index) => (
+            {slides.map((slide) => (
                 <SwiperSlide key={slide.id}>
                     {({ isActive }) => (
                         <div className="relative h-full w-full">

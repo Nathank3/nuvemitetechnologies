@@ -53,14 +53,15 @@ const EcosystemHub = ({ productKey }) => {
   const nodes = useMemo(() => {
       return features.map((feature, i) => {
           const angle = (i / features.length) * 2 * Math.PI - Math.PI / 2;
-          return {
-              x: Math.cos(angle) * RADIUS_X,
-              y: Math.sin(angle) * RADIUS_Y,
-              feature,
-              angle,
-              i
-          };
-      });
+      return {
+          x: Math.cos(angle) * RADIUS_X,
+          y: Math.sin(angle) * RADIUS_Y,
+          feature,
+          angle,
+          i,
+          randomDuration: 3 + Math.random() // Unique duration for each node
+      };
+    });
   }, [features, RADIUS_X, RADIUS_Y]);
 
 
@@ -161,7 +162,7 @@ const EcosystemHub = ({ productKey }) => {
                             transition={{ duration: 3, repeat: Infinity, delay: i * 0.2 }}
                         >
                             <animateMotion 
-                                dur={variant === 'BLUEPRINT' ? "4s" : "3s"}
+                                dur={`${node.randomDuration}s`}
                                 repeatCount="indefinite"
                                 path={d}
                             />
