@@ -13,7 +13,7 @@ const ProductTeaser = () => {
     return (
         <section className="py-20 bg-white border-b border-slate-100">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6">
                     <div>
                         <h2 className="text-3xl font-bold text-slate-900 mb-2">Our Ecosystem</h2>
                         <p className="text-slate-500">Integrated solutions for every operational need.</p>

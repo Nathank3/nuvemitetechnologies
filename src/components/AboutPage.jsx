@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Shield, Users, Lightbulb, Target, Activity, Heart, Award, CheckCircle, Linkedin } from 'lucide-react';
 import heroOffice from '../assets/hero-office.png';
 
@@ -27,7 +27,7 @@ const AboutPage = () => {
 
 const ManifestoSection = () => {
     return (
-        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden bg-slate-900">
             {/* Animated Background Mesh */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(148,163,184,0.1),transparent_70%)]" />
@@ -42,34 +42,103 @@ const ManifestoSection = () => {
             </div>
 
             <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                <motion.h1 
-                    initial={{ opacity: 0, y: 50 }}
+                <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 text-white"
+                    transition={{ duration: 0.8 }}
+                    className="max-w-4xl mx-auto text-center z-10"
                 >
-                    Innovating for Humanity.
-                </motion.h1>
-                <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.8 }}
-                    className="text-xl md:text-2xl text-slate-300 font-light"
-                >
-                    We don't just talk about systems; we live and breathe systems.
-                </motion.p>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+                        Innovating for <br />
+                        Humanity.
+                    </h1>
+                    <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+                        We don't just talk about systems; we live and breathe systems.
+                    </p>
+                </motion.div>
             </div>
         </section>
     );
 };
 
 const NorthStarSection = () => {
+    const [activeTab, setActiveTab] = React.useState('mission');
+
     return (
-        <section className="relative py-12 px-4 bg-slate-50">
+        <section className="relative py-20 px-4 bg-slate-50">
             <div className="container mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    {/* Sticky Left Column */}
-                    <div className="relative h-[60vh] lg:h-auto lg:sticky lg:top-32 self-start rounded-3xl overflow-hidden shadow-2xl">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    
+                    {/* LEFT COLUMN: Text Content */}
+                    <div className="space-y-8 py-4 order-2 lg:order-1">
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
+                             <h2 className="text-4xl font-bold text-[#0A192F] mb-6">Who We Are</h2>
+                             <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                                Nuvemite is a global leader in providing timely, sustainable and innovative software solutions to corporates, governments and non-government organisations.
+                                At Nuvemite Technologies, we don’t just talk about systems; we live and breathe systems.
+                             </p>
+
+                             {/* Tabs */}
+                             <div className="flex gap-6 border-b border-slate-200 mb-8">
+                                {['mission', 'vision'].map((tab) => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`pb-3 text-sm font-bold uppercase tracking-widest transition-all relative ${
+                                            activeTab === tab 
+                                            ? 'text-nuvemite-cyan' 
+                                            : 'text-slate-400 hover:text-slate-600'
+                                        }`}
+                                    >
+                                        {tab}
+                                        {activeTab === tab && (
+                                            <motion.div 
+                                                layoutId="activeTab"
+                                                className="absolute bottom-0 left-0 right-0 h-1 bg-nuvemite-cyan rounded-t-md"
+                                            />
+                                        )}
+                                    </button>
+                                ))}
+                             </div>
+
+                             {/* Tab Content */}
+                             <div className="min-h-[150px]">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeTab}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        {activeTab === 'mission' ? (
+                                            <div>
+                                                 <h3 className="hidden">The Mission</h3> {/* Accessible but hidden if design implies tab handles title */}
+                                                 <p className="text-lg md:text-xl font-medium leading-relaxed text-[#0A192F]">
+                                                    To provide timely, innovative, and sustainable IT solutions among global citizens.
+                                                 </p>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                 <h3 className="hidden">The Vision</h3>
+                                                 <p className="text-lg md:text-xl font-medium leading-relaxed text-[#0A192F]">
+                                                    A global leader in information technology delivering practical and viable innovations.
+                                                 </p>
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                </AnimatePresence>
+                             </div>
+                        </motion.div>
+                    </div>
+
+                    {/* RIGHT COLUMN: Image */}
+                    <div className="relative h-[50vh] lg:h-auto self-stretch rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2">
                         <img 
                             src={heroOffice} 
                             alt="Office Vision" 
@@ -78,38 +147,9 @@ const NorthStarSection = () => {
                         <div className="absolute inset-0 bg-[#0A192F]/20 mix-blend-multiply" />
                     </div>
 
-                    {/* Scrolling Right Column */}
-                    <div className="space-y-20 py-8">
-                        <ContentBlock 
-                            title="The Vision"
-                            text="A global leader in information technology delivering practical and viable innovations."
-                        />
-                        <ContentBlock 
-                            title="The Mission"
-                            text="To provide timely, innovative, and sustainable IT solutions among global citizens."
-                        />
-                         <div className="h-20" /> {/* Spacer */}
-                    </div>
                 </div>
             </div>
         </section>
-    );
-};
-
-const ContentBlock = ({ title, text }) => {
-    return (
-        <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ duration: 0.8 }}
-            className="pl-8 border-l-4 border-blue-600"
-        >
-            <h3 className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-4">{title}</h3>
-            <p className="text-3xl md:text-4xl font-bold leading-tight text-[#0A192F]">
-                {text}
-            </p>
-        </motion.div>
     );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code, Printer, PenTool, Search, Smartphone, ShieldCheck, Server, Database, Network, ShoppingBag, MessageSquare, Monitor, Globe } from 'lucide-react';
+import SEO from './SEO';
 
 const ServicesPage = () => {
   const services = [
@@ -70,8 +71,34 @@ const ServicesPage = () => {
     }
   ];
 
+
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": services.map((service, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Service",
+        "name": service.title,
+        "description": service.description,
+        "provider": {
+            "@type": "Organization",
+            "name": "Nuvemite Technologies"
+        }
+      }
+    }))
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 overflow-hidden">
+      <SEO 
+        title="Our Services" 
+        description="Professional IT services including Software Development, System Integration, Digital Transformation, E-commerce, and Bulk SMS." 
+        keywords="Software Development Kenya, IT Services, System Integration, Digital Marketing, Bulk SMS, Web Design, Nuvemite Services"
+        schema={serviceSchema}
+      />
       {/* 1. Hero Section with Glassmorphic Spinner */}
       <section className="relative pt-32 pb-20 px-4 bg-slate-900 overflow-hidden">
           <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between">

@@ -39,14 +39,14 @@ const EcosystemHub = ({ productKey }) => {
   // Radius handling
   const getRadius = () => {
       switch (variant) {
-          case 'ORBIT': return { x: isMobile ? 140 : 200, y: isMobile ? 140 : 200 };
-          case 'BLUEPRINT': return { x: isMobile ? 170 : 280, y: isMobile ? 130 : 200 };
-          case 'RADAR': return { x: isMobile ? 160 : 260, y: isMobile ? 120 : 180 };
-          default: return { x: isMobile ? 160 : 250, y: isMobile ? 130 : 180 };
+          case 'ORBIT': return { x: isMobile ? 100 : 200, y: isMobile ? 100 : 200 };
+          case 'BLUEPRINT': return { x: isMobile ? 110 : 280, y: isMobile ? 100 : 200 };
+          case 'RADAR': return { x: isMobile ? 110 : 260, y: isMobile ? 100 : 180 };
+          default: return { x: isMobile ? 110 : 250, y: isMobile ? 100 : 180 };
       }
   };
   const { x: RADIUS_X, y: RADIUS_Y } = getRadius();
-  const CENTER_SIZE = isMobile ? 110 : 130;
+  const CENTER_SIZE = isMobile ? 90 : 130;
 
 
   // -- NODE POSITIONS --

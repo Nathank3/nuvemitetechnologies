@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import EcosystemHub from './EcosystemHub';
 import { ecosystemData, getThemeColors } from '../data/ecosystemData';
+import SEO from './SEO';
 
 const products = Object.entries(ecosystemData).map(([key, data]) => ({
   id: key,
@@ -30,11 +31,35 @@ const ProductsPage = () => {
     return () => clearInterval(interval);
   }, [isPaused]);
 
+
+
   // Derived colors for the current selection
   const currentTheme = getThemeColors(selectedProduct.theme);
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": products.map((product, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "SoftwareApplication",
+        "name": product.name,
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web, Cloud",
+        "featureList": product.features ? product.features.join(", ") : ""
+      }
+    }))
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
+       <SEO 
+         title="Our Ecosystem" 
+         description="Explore Nuvemite's digital ecosystem including Imara LIMS, Imara School, Medick, and Kmacho Data. Integrated solutions for modern businesses." 
+         keywords="Nuvemite Products, Imara LIMS, Imara School, ERPNext, Medick, Kmacho Data, Inventory Management"
+         schema={productSchema}
+       />
        <section className="relative pt-32 pb-10 px-4 text-center bg-slate-900 border-b border-slate-800">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}

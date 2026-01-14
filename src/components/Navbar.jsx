@@ -25,7 +25,6 @@ const Navbar = () => {
     { name: 'Products', path: '/products' },
     { name: 'Services', path: '/services' },
     { name: 'About', path: '/about' },
-    { name: 'Partners', path: '#partners' },
   ];
 
   return (
@@ -71,15 +70,16 @@ const Navbar = () => {
 
         {/* CTA BUTTON ("Get Started") */}
         <div className="hidden md:block">
-          <button 
-            className={`transition-all duration-300 px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
+          <Link 
+            to="/contact"
+            className={`inline-block transition-all duration-300 px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
               isScrolled 
                 ? 'bg-blue-600 text-white hover:bg-cyan-500' // Blue rect, white words
                 : 'bg-white text-blue-600 hover:bg-slate-100' // White rect, blue words
             }`}
           >
             Get Started
-          </button>
+          </Link>
         </div>
 
         {/* MOBILE MENU TOGGLE */}
@@ -126,11 +126,13 @@ const Navbar = () => {
                 </div>
               ))}
               <div className="pt-4">
-                <button 
+                <Link 
+                  to="/contact"
                   className="block w-full text-center bg-blue-600 text-white py-3 rounded-full font-bold shadow-md active:bg-cyan-600"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Get Started
-                </button>
+                </Link>
               </div>
             </div>
           </motion.div>
@@ -141,3 +143,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+// Mobile menu update above, this chunk is just context or placeholder if needed.
+// Actually I need to edit App.jsx efficiently.
+// I will not edit App.jsx in this MULTI call for Navbar. I'll split it.
+// Wait, I can't edit multiple files in one call. I must make a separates call for App.jsx.
+// I will only edit Navbar here.

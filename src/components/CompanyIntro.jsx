@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 const CountUp = ({ to, duration = 2, suffix = "" }) => {
     const nodeRef = useRef();
-    const isInView = useInView(nodeRef, { once: true, margin: "-50px" });
+    const isInView = useInView(nodeRef, { once: true });
 
     useEffect(() => {
         if (!isInView) return;
@@ -109,7 +109,7 @@ const CompanyIntro = () => {
                 </p>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10 border-t border-slate-200 pt-8">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-10 border-t border-slate-200 pt-8">
                     <div className="flex flex-col items-start">
                         <h4 className="text-3xl font-bold text-slate-900 leading-none mb-1">
                              <CountUp to={16} suffix="+" />
