@@ -2,6 +2,10 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Shield, Users, Lightbulb, Target, Activity, Heart, Award, CheckCircle, Linkedin } from 'lucide-react';
 import heroOffice from '../assets/hero-office.png';
+import colmanImg from '../assets/colman-mwakio.png';
+import davidImg from '../assets/david-kimari.png';
+import maryImg from '../assets/mary-namunyak.png';
+import danielImg from '../assets/daniel-nyagah.png';
 
 const AboutPage = () => {
     return (
@@ -199,11 +203,6 @@ const ValueCard = ({ value }) => {
         </div>
     );
 };
-
-import colmanImg from '../assets/colman-mwakio.png';
-import davidImg from '../assets/david-kimari.png';
-import maryImg from '../assets/mary-namunyak.png';
-import danielImg from '../assets/daniel-nyagah.png';
 
 const LeadershipSection = () => {
     const leaders = [

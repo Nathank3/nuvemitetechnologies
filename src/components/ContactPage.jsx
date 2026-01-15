@@ -113,23 +113,28 @@ const ContactPage = () => {
                       <a href="tel:+254712984364" className="text-blue-600 font-semibold hover:underline">+254 712 984364</a>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-blue-100 rounded-lg text-blue-600">
-                      <Calendar className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <button 
+              {/* Redesigned Schedule Demo CTA */}
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white shadow-xl transition-transform hover:scale-[1.02]">
+                <div className="absolute -right-4 -top-4 opacity-10">
+                    <Calendar className="h-32 w-32 rotate-12" />
+                </div>
+                
+                <div className="relative z-10">
+                    <h3 className="text-2xl font-bold mb-3">See it in Action</h3>
+                    <p className="text-blue-100 mb-8 leading-relaxed">
+                        Experience the power of our ecosystem firsthand. Book a personalized demo with our product experts today.
+                    </p>
+                    
+                    <button 
                         onClick={() => setIsDemoModalOpen(true)}
-                        className="text-left group"
-                      >
-                         <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">Schedule a Demo</h3>
-                         <p className="text-slate-600 group-hover:text-blue-500 transition-colors">
-                           Book a personalized demonstration of our solutions with our product experts.
-                         </p>
-                      </button>
-                    </div>
-                  </div>
+                        className="w-full bg-white text-blue-600 font-bold py-4 rounded-xl shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 group"
+                    >
+                        <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        Schedule a Demo
+                    </button>
                 </div>
               </div>
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Package, Zap, Info, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'; 
 
@@ -97,43 +97,80 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[60] md:hidden bg-slate-900/95 backdrop-blur-lg flex flex-col"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <div key={link.name} className="border-b border-slate-50 pb-2 last:border-0">
-                   {link.path.startsWith('#') ? (
-                      <a 
-                        href={link.path}
-                        className="block font-bold text-slate-800 text-lg hover:text-blue-500 transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </a>
-                   ) : (
-                      <Link 
-                        to={link.path} 
-                        className="block font-bold text-slate-800 text-lg hover:text-blue-500 transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </Link>
-                   )}
-                </div>
+            {/* Header with Logo and Close Button */}
+            <div className="flex items-center justify-between p-6 border-b border-slate-800/50">
+                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
+                    <img src={logo} alt="Nuvemite" className="h-8 w-auto brightness-0 invert" />
+                </Link>
+                <button 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 bg-slate-800/50 rounded-full text-slate-400 hover:text-white transition-colors border border-slate-700/50"
+                >
+                    <X className="w-6 h-6" />
+                </button>
+            </div>
+
+            {/* Links Container */}
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-3">
+              {navLinks.map((link, idx) => (
+                 <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + idx * 0.1 }}
+                 >
+                    {link.path.startsWith('#') ? (
+                       <a 
+                         href={link.path}
+                         onClick={() => setMobileMenuOpen(false)}
+                         className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 text-slate-200 hover:bg-slate-800 hover:border-slate-600 transition-all group"
+                       >
+                         <span className="flex items-center gap-4 font-semibold text-lg">
+                            <div className="p-2 rounded-lg bg-slate-800 group-hover:bg-slate-700 transition-colors">
+                                {link.name === 'Products' && <Package className="w-5 h-5 text-blue-400" />}
+                                {link.name === 'Services' && <Zap className="w-5 h-5 text-purple-400" />}
+                                {link.name === 'About' && <Info className="w-5 h-5 text-cyan-400" />}
+                            </div>
+                            {link.name}
+                         </span>
+                         <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                       </a>
+                    ) : (
+                       <Link 
+                         to={link.path} 
+                         onClick={() => setMobileMenuOpen(false)}
+                         className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 text-slate-200 hover:bg-slate-800 hover:border-slate-600 transition-all group"
+                       >
+                         <span className="flex items-center gap-4 font-semibold text-lg">
+                            <div className="p-2 rounded-lg bg-slate-800 group-hover:bg-slate-700 transition-colors">
+                                {link.name === 'Products' && <Package className="w-5 h-5 text-blue-400" />}
+                                {link.name === 'Services' && <Zap className="w-5 h-5 text-purple-400" />}
+                                {link.name === 'About' && <Info className="w-5 h-5 text-cyan-400" />}
+                            </div>
+                            {link.name}
+                         </span>
+                         <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                       </Link>
+                    )}
+                 </motion.div>
               ))}
-              <div className="pt-4">
+            </div>
+
+            {/* Footer / CTA */}
+            <div className="p-6 border-t border-slate-800/50 bg-slate-900/50 pb-8">
                 <Link 
                   to="/contact"
-                  className="block w-full text-center bg-blue-600 text-white py-3 rounded-full font-bold shadow-md active:bg-cyan-600"
                   onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center p-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold text-lg shadow-lg hover:shadow-cyan-500/25 transition-all active:scale-[0.98]"
                 >
                   Get Started
                 </Link>
-              </div>
             </div>
           </motion.div>
         )}
