@@ -37,7 +37,7 @@ const ContactPage = () => {
   const faqs = [
     {
       question: "How long does implementation typically take?",
-      answer: "Implementation timelines vary based on complexity, typically ranging from 8-16 weeks for standard deployments."
+      answer: "Implementation timelines vary based on complexity, typically ranging from 6-16 weeks for standard deployments."
     },
     {
       question: "Do you offer cloud and on-premise options?",
