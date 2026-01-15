@@ -17,6 +17,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Disable body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
   // Text color logic: White when transparent (top), Deep Blue when scrolled/glassy
   // Nuvemite Blue usually is #005A98 or similar.
   const linkColorClass = isScrolled ? 'text-[#005A98]' : 'text-white';
@@ -29,7 +41,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 w-full transition-all duration-500 ${
+        mobileMenuOpen ? 'z-[9999]' : 'z-50'
+      } ${
         isScrolled 
           ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200 py-3' 
           : 'bg-transparent py-5'
@@ -101,12 +115,12 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[60] md:hidden bg-slate-900/95 backdrop-blur-lg flex flex-col"
+            className="fixed inset-0 z-[9999] md:hidden bg-slate-900/95 backdrop-blur-lg flex flex-col"
           >
             {/* Header with Logo and Close Button */}
-            <div className="flex items-center justify-between p-6 border-b border-slate-800/50">
+            <div className="relative z-10 flex items-center justify-between p-6 border-b border-slate-800/50 bg-slate-900 shadow-sm">
                 <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
-                    <img src={logo} alt="Nuvemite" className="h-8 w-auto brightness-0 invert" />
+                    <img src={logo} alt="Nuvemite" className="h-8 w-auto transition-all duration-300" />
                 </Link>
                 <button 
                     onClick={() => setMobileMenuOpen(false)}
@@ -162,8 +176,8 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Footer / CTA */}
-            <div className="p-6 border-t border-slate-800/50 bg-slate-900/50 pb-8">
+            {/* Footer / CTA - Solid BG */}
+            <div className="relative z-10 p-6 border-t border-slate-800/50 bg-slate-900 pb-8 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
                 <Link 
                   to="/contact"
                   onClick={() => setMobileMenuOpen(false)}

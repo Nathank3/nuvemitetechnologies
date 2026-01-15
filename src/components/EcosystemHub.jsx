@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ecosystemData, getThemeColors } from '../data/ecosystemData';
 
@@ -21,10 +21,23 @@ const EcosystemHub = ({ productKey }) => {
   const features = data.features;
   const variant = getVariant(data.variant, data.name);
 
-  // Responsive layout
-  const [isMobile, setIsMobile] = React.useState(false);
-  React.useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+  // Scaling Logic for integrity
+  const [scale, setScale] = useState(1);
+  
+  useEffect(() => {
+    const handleResize = () => {
+        const width = window.innerWidth;
+        // Base width is 800px (Desktop viewbox)
+        // If screen is smaller than ~850px, we start scaling down.
+        // We leave some padding (e.g. 40px total).
+        if (width < 850) {
+            // Zoom in: Use 650px as base width instead of 800px
+            const newScale = (width - 20) / 650; 
+            setScale(Math.max(newScale, 0.45)); // Slightly higher min scale
+        } else {
+            setScale(1);
+        }
+    };
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -39,14 +52,14 @@ const EcosystemHub = ({ productKey }) => {
   // Radius handling
   const getRadius = () => {
       switch (variant) {
-          case 'ORBIT': return { x: isMobile ? 100 : 200, y: isMobile ? 100 : 200 };
-          case 'BLUEPRINT': return { x: isMobile ? 110 : 280, y: isMobile ? 100 : 200 };
-          case 'RADAR': return { x: isMobile ? 110 : 260, y: isMobile ? 100 : 180 };
-          default: return { x: isMobile ? 110 : 250, y: isMobile ? 100 : 180 };
+          case 'ORBIT': return { x: 200, y: 200 };
+          case 'BLUEPRINT': return { x: 240, y: 200 }; // Reduced from 280
+          case 'RADAR': return { x: 220, y: 180 };     // Reduced from 260
+          default: return { x: 220, y: 180 };          // Reduced from 250
       }
   };
   const { x: RADIUS_X, y: RADIUS_Y } = getRadius();
-  const CENTER_SIZE = isMobile ? 90 : 130;
+  const CENTER_SIZE = 130;
 
 
   // -- NODE POSITIONS --
@@ -97,8 +110,23 @@ const EcosystemHub = ({ productKey }) => {
   return (
     <div 
         key={productKey} // Strict Re-render
-        className="relative w-full h-[500px] flex items-center justify-center overflow-visible"
+        className="relative w-full flex items-center justify-center overflow-visible origin-center"
+        style={{ 
+            height: 500 * scale,
+            marginLeft: scale < 1 ? '-10px' : '0', // Slight nudge left on mobile
+            marginTop: scale < 1 ? '20px' : '0'    // Push down away from text on mobile
+        }}
     >
+      {/* Scaling Wrapper */}
+      <div 
+        style={{ 
+            width: VIEWBOX_W, 
+            height: VIEWBOX_H, 
+            transform: `scale(${scale})`,
+            transformOrigin: 'center center'
+        }}
+        className="relative flex items-center justify-center"
+      >
       
       {/* 1. BACKGROUNDS */}
       {variant === 'ORBIT' && (
@@ -180,8 +208,8 @@ const EcosystemHub = ({ productKey }) => {
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ duration: 3, repeat: Infinity }}
       >
-         <Icon size={isMobile ? 24 : 28} className={`mb-1 ${colors.text}`} />
-         <span className={`font-bold text-center leading-tight ${isMobile ? 'text-[10px]' : 'text-xs'} text-slate-800`}>
+         <Icon size={28} className={`mb-1 ${colors.text}`} />
+         <span className={`font-bold text-center leading-tight text-xs text-slate-800`}>
             {data.name}
          </span>
          <div className={`absolute inset-0 -z-10 rounded-3xl blur-2xl opacity-20 ${colors.bg}`} />
@@ -214,26 +242,31 @@ const EcosystemHub = ({ productKey }) => {
               ))}
           </motion.div>
       ) : (
-          /* OTHERS: Static placement + individual animations */
-          nodes.map((node, i) => (
-              <motion.div
-                key={i}
-                className={`absolute z-10 px-3 py-1.5 rounded-full border bg-white shadow-md ${colors.border} ${colors.text} flex items-center gap-2`}
-                style={{ 
-                    left: '50%', top: '50%', 
-                    marginLeft: node.x, marginTop: node.y, 
-                    transform: 'translate(-50%, -50%)' 
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1, ...nodeAnim }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                  <div className={`w-1.5 h-1.5 rounded-full ${colors.bg}`} />
-                  <span className="text-[10px] font-semibold text-slate-700 whitespace-nowrap">{node.feature}</span>
-              </motion.div>
-          ))
-      )}
+           /* OTHERS: Static placement + individual animations */
+           /* WRAPPER: Matches ORBIT structure for consistent centering */
+           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              {nodes.map((node, i) => (
+                  <div
+                    key={i}
+                    className="absolute flex items-center justify-center"
+                    style={{ transform: `translate(${node.x}px, ${node.y}px)` }}
+                  >
+                        <motion.div
+                            key={i}
+                            className={`z-10 px-3 py-1.5 rounded-full border bg-white shadow-md ${colors.border} ${colors.text} flex items-center gap-2`}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1, ...nodeAnim }}
+                            transition={{ delay: i * 0.1, duration: 0.5 }}
+                        >
+                            <div className={`w-1.5 h-1.5 rounded-full ${colors.bg}`} />
+                            <span className="text-[10px] font-semibold text-slate-700 whitespace-nowrap">{node.feature}</span>
+                        </motion.div>
+                  </div>
+              ))}
+           </div>
+       )}
 
+      </div>
     </div>
   );
 };
