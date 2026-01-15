@@ -40,6 +40,7 @@ const Navbar = () => {
   ];
 
   return (
+    <>
     <nav
       className={`fixed top-0 w-full transition-all duration-500 ${
         mobileMenuOpen ? 'z-[9999]' : 'z-50'
@@ -106,8 +107,10 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+    </nav>
 
-      {/* MOBILE MENU OVERLAY */}
+
+      {/* MOBILE MENU OVERLAY - Moved outside nav to avoid clipping by backdrop-filter */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -189,7 +192,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 
